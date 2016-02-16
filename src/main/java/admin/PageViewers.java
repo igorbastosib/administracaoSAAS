@@ -67,6 +67,10 @@ public class PageViewers {
 	}
 	
 	//Outros Metodos
+	public void salvaAcessouUrl() throws Exception{
+		PageViewersDAO.getInstance().create(this);
+	}
+	
 	/**
 	 * Busca no banco de dados as dez ultimas paginas acessadas
 	 * 

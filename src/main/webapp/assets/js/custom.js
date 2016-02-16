@@ -11,7 +11,7 @@
 	});
 	
 	$(".dropdown").click(function() {
-		window.location = "./";
+		window.location = "./AdminServlet.saas?comando=logout";
 	});
 	
 	$(".dropdown").hover(function() {

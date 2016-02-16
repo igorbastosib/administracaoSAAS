@@ -10,12 +10,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -33,6 +28,11 @@ import dao.UsuarioDAO;
 @WebServlet(value = "/login-admin.saas")
 public class LoginAdminServlet extends HttpServlet {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Override
 	public void init() throws ServletException {
 		try {
@@ -46,10 +46,10 @@ public class LoginAdminServlet extends HttpServlet {
 	protected void service(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		try {
+			
 			String comando = ServletUtil.stringNuloParaVazio(req.getParameter("comando"));
 			if (!comando.isEmpty() && comando.equals("entrar")) {
 				Boolean validaSenha = validaLogin(req, resp);
-				
 				if (validaSenha) {
 					HttpSession session = req.getSession();
 					session.setAttribute("login",
