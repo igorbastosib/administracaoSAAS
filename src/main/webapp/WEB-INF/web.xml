@@ -7,14 +7,4 @@
     <error-code>404</error-code>
     <location>/404.jsp</location>
   </error-page>
-  <!-- <servlet>
-    <description></description>
-    <display-name>UsuarioServlet</display-name>
-    <servlet-name>UsuarioServlet</servlet-name>
-    <servlet-class>servlet.UsuarioServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>UsuarioServlet</servlet-name>
-    <url-pattern>/UsuarioServlet</url-pattern>
-  </servlet-mapping> -->
 </web-app>
