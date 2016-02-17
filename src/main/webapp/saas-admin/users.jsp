@@ -15,9 +15,13 @@
 		</div>
 		<div class="col-md-10 content">
 			<div class="panel-heading">
-				<h3 class="panel-title">Usuários cadastrados</h3>
+				<h3 class="panel-title">Usuários cadastrados
+					<td class="table-button button-delet"><a
+						href="javascript:printTableFromHTMLtoPDF('tableUsers', 'Usuários cadastrados')" title="Imprimir"><span
+							style="margin-left:2em"class="glyphicon glyphicon-print"></span></a></td>
+				</h3>
 			</div>
-			<div class="row">
+			<div id="tableUsers" class="row">
 				<div class="container-fluid table-users">
 					<table cellpadding="2" cellspacing="2" border="1">
 						<tr>
@@ -41,6 +45,9 @@
 <jsp:include page="../assets/includes/footer.html"></jsp:include>
 
 <!-- Scripts -->
+<script src="./assets/js/jspdf.debug.js"></script>
+<script src="./assets/js/print.table.to.pdf.js"></script>
+
 <script src="./assets/js/jquery-1.11.1.min.js"></script>
 <script src="./assets/bootstrap/js/bootstrap.min.js"></script>
 <script src="./assets/js/imagesloaded.pkgd.js"></script>

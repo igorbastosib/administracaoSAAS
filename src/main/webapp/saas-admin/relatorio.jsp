@@ -13,18 +13,23 @@
 		</div>
 		<div class="col-md-10 content">
 			<div class="panel-heading">
-				<h3 class="panel-title">Relatório de Acesso</h3>
+				<h3 class="panel-title">
+					Páginas mais acessadas
+					<td class="table-button button-delet"><a
+						href="javascript:printTableFromHTMLtoPDF('tableMoreAccess', 'Páginas mais acessadas')" title="Imprimir"><span
+							style="margin-left:2em"class="glyphicon glyphicon-print"></span></a></td>
+				</h3>
 			</div>
-			<div class="row">
-				<div class="container-fluid table-relatorios-mais-acesso">
-					<table cellpadding="2" cellspacing="2" border="1">
+			<div id="tableMoreAccess" class="row">
+				<div  class="container-fluid table-relatorios-mais-acesso">
+					<table cellpadding="2" cellspacing="2" border="1" >
 						<tr>
-							<th class="title-column">Página (URL)</th> 
+							<th class="title-column">Página (URL)</th>
 							<th class="title-column">Total Acessos</th>
 						</tr>
 						<c:forEach var="p" items="${relatorioAcesso}">
 							<tr>
-								 <td class="tupla-element">${p.url}</td>  
+								<td class="tupla-element">${p.url}</td>
 								<td class="tupla-element">${p.qtdAcessos}</td>
 							</tr>
 						</c:forEach>
@@ -32,19 +37,26 @@
 				</div>
 			</div>
 			<div class="panel-heading">
-				<h3 class="panel-title">Últimas páginas acessadas</h3>
+
+				<h3 class="panel-title">
+					Últimas páginas acessadas
+					<td class="table-button button-delet"><a
+						href="javascript:printTableFromHTMLtoPDF('tableRealAccess', 'Últimas páginas acessadas')" title="Imprimir"><span
+							style="margin-left:2em"class="glyphicon glyphicon-print"></span></a></td>
+				</h3>
+
 			</div>
-			<div class="row">
+			<div id="tableRealAccess" class="row">
 				<div class="container-fluid table-relatorios-acesso-real">
-					<table cellpadding="2" cellspacing="2" border="1">
+					<table cellpadding="2" cellspacing="2" border="1" >
 						<tr>
-							<th class="title-column">Página (URL)</th> 
+							<th class="title-column">Página (URL)</th>
 							<th class="title-column">IP</th>
 							<th class="title-column">Data/Hora</th>
 						</tr>
 						<c:forEach var="p" items="${relatorioAcessoReal}">
 							<tr>
-								 <td class="tupla-element">${p.url}</td>  
+								<td class="tupla-element">${p.url}</td>
 								<td class="tupla-element">${p.ip}</td>
 								<td class="tupla-element">${p.dateTime}</td>
 							</tr>
@@ -58,6 +70,9 @@
 <jsp:include page="../assets/includes/footer.html"></jsp:include>
 
 <!-- Scripts -->
+<script src="./assets/js/jspdf.debug.js"></script>
+<script src="./assets/js/print.table.to.pdf.js"></script>
+
 <script src="./assets/js/jquery-1.11.1.min.js"></script>
 <script src="./assets/bootstrap/js/bootstrap.min.js"></script>
 <script src="./assets/js/imagesloaded.pkgd.js"></script>
