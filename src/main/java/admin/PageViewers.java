@@ -68,7 +68,11 @@ public class PageViewers {
 	}
 	
 	//Outros Metodos
-	public void salvaAcessouUrl() throws Exception{
+	/**
+	 * Salva os dados de acesso aa URL
+	 * @throws Exception
+	 */
+	public void saveURLAccess() throws Exception{
 		if(UnmonitoredPagesDAO.getInstance().findAll(this.url).size() == 0 ){
 			PageViewersDAO.getInstance().create(this);
 		}

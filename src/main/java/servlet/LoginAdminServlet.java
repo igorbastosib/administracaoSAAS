@@ -76,6 +76,10 @@ public class LoginAdminServlet extends HttpServlet {
 
 	}
 
+	/**
+	 * Realiza o Logout do usuario
+	 * @param req
+	 */
 	private void logoutUser(HttpServletRequest req){
 		req.setAttribute("login", "");
 		req.setAttribute("senha", "");
@@ -84,6 +88,10 @@ public class LoginAdminServlet extends HttpServlet {
 		req.getSession().invalidate();
 	}
 	
+	/**
+	 * Cria as tabelas do Banco de Dados caso nao exista
+	 * @throws SQLException
+	 */
 	private void criarDB() throws SQLException {
 		try {
 			String sql_user = "create table usuario ("

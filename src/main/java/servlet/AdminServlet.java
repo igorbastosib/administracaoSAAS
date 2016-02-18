@@ -106,7 +106,7 @@ public class AdminServlet extends HttpServlet {
 		try {
 			Date dateTime = ServletUtil.stringToDateTimeSQL(date);//ServletUtil.stringToDateTime(new SimpleDateFormat("yyyy-mm-dd hh:mm:ss").format(new Date()));
 			PageViewers pageView = new PageViewers(url, ip, dateTime);
-			pageView.salvaAcessouUrl();
+			pageView.saveURLAccess();
 		}catch (Exception e){
 			e.printStackTrace();
 		}
@@ -121,6 +121,10 @@ public class AdminServlet extends HttpServlet {
 		req.setAttribute("dontMonitoredPages", UnmonitoredPages.getUnmonitoredPagesReport());
 	}
 	
+	/**
+	 * Para o monitoramento da url passada, ou seja, adiciona um registro aa tabela unmonitoredPages
+	 * @param req
+	 */
 	private void stopURLMonitoring(HttpServletRequest req){
 		String url = ServletUtil.stringNuloParaVazio(req.getParameter("url"));
 		if(url != null && !url.equals("")){
@@ -134,6 +138,10 @@ public class AdminServlet extends HttpServlet {
 		}
 	}
 	
+	/**
+	 * Inicia o monitoramento da url passada, ou seja, remove o registro da tabela unmonitoredPages
+	 * @param req
+	 */
 	private void startURLMonitoring(HttpServletRequest req){
 		String url = ServletUtil.stringNuloParaVazio(req.getParameter("url"));
 		if(url != null && !url.equals("")){
