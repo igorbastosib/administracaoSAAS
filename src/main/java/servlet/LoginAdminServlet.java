@@ -17,8 +17,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import admin.Usuario;
-import dao.UsuarioDAO;
+import admin.User;
+import dao.UserDAO;
 
 /**
  * Objetivo: servlet que gerencia o login dos usuarios e cria o BD
@@ -89,7 +89,7 @@ public class LoginAdminServlet extends HttpServlet {
 			String sql_user = "create table usuario ("
 					+ "  id numeric(18,0) not null,"
 					+ "  login varchar(200) not null,"
-					+ "  senha varchar(200) not null,"
+					+ "  senha varchar(1000),"
 					+ "  constraint pk_conta primary key (id) " + ")";
 			
 			String sql_pageViewers = "create table pageViewers ("
@@ -97,6 +97,11 @@ public class LoginAdminServlet extends HttpServlet {
 					+ "  url varchar(200) not null,"
 					+ "  ip varchar(20) not null,"
 					+ "  dateTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP,"
+					+ "  constraint pk_conta primary key (id) " + ")";
+			
+			String sql_pagesUnmonitored = "create table unmonitoredPages ("
+					+ "  id numeric(18,0) not null,"
+					+ "  url varchar(200) not null"
 					+ "  constraint pk_conta primary key (id) " + ")";
 			String url = "jdbc:derby:db;create=true";
 			Connection conexao;
@@ -115,10 +120,10 @@ public class LoginAdminServlet extends HttpServlet {
 	 */
 	private void criaAdminUser() {
 		try {
-			Usuario user = new Usuario();
+			User user = new User();
 			user.setLogin("admin");
 			user.setSenha("admin");
-			UsuarioDAO userDAO = UsuarioDAO.getInstance();
+			UserDAO userDAO = UserDAO.getInstance();
 			List listUser = userDAO.findOne("admin", "admin");
 			if (listUser != null && listUser.size() == 0) {
 				userDAO.getInstance().create(user);

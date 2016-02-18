@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="usuario")
-public class Usuario {
+public class User {
 	//Atributos
 	@Id
 	@GeneratedValue(strategy=GenerationType.TABLE)  
@@ -14,11 +14,11 @@ public class Usuario {
 	@Column(name = "login", length = 200, unique = true, nullable = false)
 	private String login;
 
-	@Column(name = "senha", length = 200, nullable = false)
+	@Column(name = "senha", length = 200, nullable = true)
 	private String senha;
 	
 	//Construtores
-	public Usuario(){}
+	public User(){}
 
 	//Getters and Setters
 	public long getId() {

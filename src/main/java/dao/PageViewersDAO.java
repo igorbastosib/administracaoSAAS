@@ -1,16 +1,10 @@
 package dao;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-
 import javax.persistence.Query;
 
 import admin.PageViewers;
-import admin.RelatorioPaginasMaisAcessadas;
-import admin.Usuario;
-import servlet.ServletUtil;
-
+import admin.ReportPagesMostAccess;
 import java.util.List;
 
 /**
@@ -38,25 +32,27 @@ public class PageViewersDAO extends AbstractJpaDAO<PageViewers> {
 	 * 
 	 * @return
 	 */
-	public List geraRelatorioAcessos(){
-		Query query = JpaUtil.getEntityManager().createQuery("select a.url, count(a.url) as qtdAcessos from PageViewers a group by a.url order by qtdAcessos desc");
-		List<RelatorioPaginasMaisAcessadas> relatorioAcessos = new ArrayList<RelatorioPaginasMaisAcessadas>();
+	public List createAccesReport(){
+		Query query = JpaUtil.getEntityManager().createQuery(
+				"select a.url, count(a.url) as qtdAcessos from PageViewers a where a.url not in (select b.url from UnmonitoredPages b) group by a.url order by qtdAcessos desc");
+		List<ReportPagesMostAccess> accessReport = new ArrayList<ReportPagesMostAccess>();
 		
 		List<Object[]> resultList = (List<Object[]>) query.getResultList();
 		for (int i = 0; i < resultList.size(); i++)
 		{
-			RelatorioPaginasMaisAcessadas relAcc = new RelatorioPaginasMaisAcessadas((String) resultList.get(i)[0],  Integer.valueOf(String.valueOf(resultList.get(i)[1])));
-			relatorioAcessos.add(relAcc);
+			Boolean monitorar = (UnmonitoredPagesDAO.getInstance().findAll((String) resultList.get(i)[0]).size() == 0);
+			ReportPagesMostAccess relAcc = new ReportPagesMostAccess((String) resultList.get(i)[0],  Integer.valueOf(String.valueOf(resultList.get(i)[1])), monitorar);
+			accessReport.add(relAcc);
 		}
-		return relatorioAcessos;
+		return accessReport;
 	}
 
 	/**
 	 * Busca a 10 ultimas paginas acessadas
 	 * @return
 	 */
-	public List dezUltimasPagAcessadas(){
-		Query query = JpaUtil.getEntityManager().createQuery("select a from PageViewers a order by a.dateTime desc");
+	public List tenLastAccessPages(){
+		Query query = JpaUtil.getEntityManager().createQuery("select a from PageViewers a where a.url not in (select b.url from UnmonitoredPages b) order by a.dateTime desc");
 		List<PageViewers> pageViewers = new ArrayList<PageViewers>();
 		int totalLista = 10;
 		if(query.getResultList().size() < 10){

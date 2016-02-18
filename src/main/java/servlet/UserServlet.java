@@ -19,9 +19,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import admin.PageViewers;
-import admin.Usuario;
+import admin.User;
 import dao.PageViewersDAO;
-import dao.UsuarioDAO;
+import dao.UserDAO;
 
 /**
  * Servlet para gerenciar o CRUD da entidade Usuario Todas funcoes relacionadas
@@ -30,7 +30,7 @@ import dao.UsuarioDAO;
 @WebServlet(value = "/UserServlet.saas")
 public class UserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private UsuarioDAO userDAO = UsuarioDAO.getInstance();
+	private UserDAO userDAO = UserDAO.getInstance();
 
 	public UserServlet() {
 		super();
@@ -68,7 +68,7 @@ public class UserServlet extends HttpServlet {
 	 * @throws Exception
 	 */
 	protected void salvar(HttpServletRequest request) throws Exception {
-		Usuario user = new Usuario();
+		User user = new User();
 		preencheAtributosUsuario(user, request);
 		userDAO.create(user);
 	}
@@ -82,7 +82,7 @@ public class UserServlet extends HttpServlet {
 	protected void editar(HttpServletRequest request) throws Exception {
 		String id = request.getParameter("id-usuario");
 		long idLong = Long.parseLong(id);
-		Usuario user = UsuarioDAO.getInstance().findOne(idLong);
+		User user = UserDAO.getInstance().findOne(idLong);
 		preencheAtributosUsuario(user, request);
 		userDAO.update(user);
 	}
@@ -104,7 +104,7 @@ public class UserServlet extends HttpServlet {
 	 * @param req
 	 */
 	private void listar(HttpServletRequest req) {
-		List<Usuario> listaUsuario = UsuarioDAO.getInstance().findAll();
+		List<User> listaUsuario = UserDAO.getInstance().findAll();
 		
 		req.setAttribute("listaUsuarios", listaUsuario);
 	}
@@ -118,7 +118,7 @@ public class UserServlet extends HttpServlet {
 	private void prepararEditar(HttpServletRequest request) throws Exception {
 		String id = request.getParameter("id-usuario");
 		long idLong = Long.parseLong(id);
-		Usuario user = UsuarioDAO.getInstance().findOne(idLong);
+		User user = UserDAO.getInstance().findOne(idLong);
 		request.setAttribute("userEdit", user);
 	}
 
@@ -130,7 +130,7 @@ public class UserServlet extends HttpServlet {
 	 * @param request
 	 * @throws Exception
 	 */
-	private void preencheAtributosUsuario(Usuario user, HttpServletRequest request) throws Exception {
+	private void preencheAtributosUsuario(User user, HttpServletRequest request) throws Exception {
 		user.setLogin(request.getParameter("login"));
 		user.setSenha(request.getParameter("senha"));
 	}

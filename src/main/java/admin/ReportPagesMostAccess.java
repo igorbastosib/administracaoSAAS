@@ -9,17 +9,19 @@ import dao.PageViewersDAO;
  * @author IgorBastos
  *
  */
-public class RelatorioPaginasMaisAcessadas {
+public class ReportPagesMostAccess {
 	//Atributos
 	private String url;
 	private int qtdAcessos;
+	private boolean monitorar;
 	
 	//Construtores
-	public RelatorioPaginasMaisAcessadas(){}
+	public ReportPagesMostAccess(){}
 	
-	public RelatorioPaginasMaisAcessadas(String url, int qtdAcessos){
+	public ReportPagesMostAccess(String url, int qtdAcessos, boolean monitorar){
 		this.url = url;
 		this.qtdAcessos = qtdAcessos;
+		this.setMonitorar(monitorar);
 	}
 
 	//Getters & Setters
@@ -39,14 +41,22 @@ public class RelatorioPaginasMaisAcessadas {
 		this.qtdAcessos = qtdAcessos;
 	}
 	
+	public boolean isMonitorar() {
+		return monitorar;
+	}
+
+	public void setMonitorar(boolean monitorar) {
+		this.monitorar = monitorar;
+	}
+
 	//Outros Metodos
 	/**
 	 * Busca no banco de dados a relacao das paginas e quantidade de vezes que foram acessadas
 	 * 
 	 * @param req
 	 */
-	public static List listarRelatorioMaiorAcesso() {
-		List<RelatorioPaginasMaisAcessadas> relatorioAcesso = PageViewersDAO.getInstance().geraRelatorioAcessos();
-		return relatorioAcesso;
+	public static List getMostAccessReport() {
+		List<ReportPagesMostAccess> accessReport = PageViewersDAO.getInstance().createAccesReport();
+		return accessReport;
 	}
 }

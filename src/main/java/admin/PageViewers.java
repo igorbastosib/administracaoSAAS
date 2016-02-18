@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.servlet.http.HttpServletRequest;
 
 import dao.PageViewersDAO;
+import dao.UnmonitoredPagesDAO;
 
 /**
  * Classe de representacao dos dados para geracao de relatorios
@@ -68,7 +69,9 @@ public class PageViewers {
 	
 	//Outros Metodos
 	public void salvaAcessouUrl() throws Exception{
-		PageViewersDAO.getInstance().create(this);
+		if(UnmonitoredPagesDAO.getInstance().findAll(this.url).size() == 0 ){
+			PageViewersDAO.getInstance().create(this);
+		}
 	}
 	
 	/**
@@ -76,8 +79,8 @@ public class PageViewers {
 	 * 
 	 * @param req
 	 */
-	public static List listarRelatorioAcessoReal() {
-		List<PageViewers> relatorioAcessoReal = PageViewersDAO.getInstance().dezUltimasPagAcessadas();
-		return relatorioAcessoReal;
+	public static List getRealAccessReport() {
+		List<PageViewers> realAccessReport = PageViewersDAO.getInstance().tenLastAccessPages();
+		return realAccessReport;
 	}
 }

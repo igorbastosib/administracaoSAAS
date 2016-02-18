@@ -1,7 +1,7 @@
 <jsp:include page="/saas-admin/assets/includes/header.html"></jsp:include>
 <jsp:include page="/saas-admin/assets/includes/navbar.html"></jsp:include>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="admin.RelatorioPaginasMaisAcessadas"%>
+<%@ page import="admin.ReportPagesMostAccess"%>
 
 
 <!-- Relatorios Start -->
@@ -16,21 +16,28 @@
 				<h3 class="panel-title">
 					Páginas mais acessadas
 					<td class="table-button button-delet"><a
-						href="javascript:printTableFromHTMLtoPDF('tableMoreAccess', 'Páginas mais acessadas')" title="Imprimir"><span
-							style="margin-left:2em"class="glyphicon glyphicon-print"></span></a></td>
+						href="javascript:printTableFromHTMLtoPDF('tableMoreAccess', 'Páginas mais acessadas')"
+						title="Imprimir"><span style="margin-left: 2em"
+							class="glyphicon glyphicon-print"></span></a></td>
 				</h3>
 			</div>
 			<div id="tableMoreAccess" class="row">
-				<div  class="container-fluid table-relatorios-mais-acesso">
-					<table cellpadding="2" cellspacing="2" border="1" >
+				<div class="container-fluid table-relatorios-mais-acesso">
+					<table cellpadding="2" cellspacing="2" border="1">
 						<tr>
 							<th class="title-column">Página (URL)</th>
 							<th class="title-column">Total Acessos</th>
+							<th class="title-column">Monitorar</th>
 						</tr>
-						<c:forEach var="p" items="${relatorioAcesso}">
+						<c:forEach var="p" items="${accessReport}">
 							<tr>
 								<td class="tupla-element">${p.url}</td>
 								<td class="tupla-element">${p.qtdAcessos}</td>
+								<td class="table-button button-delet" align="center"><a
+									href="./AdminServlet.saas?comando=pararMonitoraURL&url=${p.url}"
+									onclick="return confirm('Você tem certeza?')"
+									title="Deixar de monitorar"><span
+										class="glyphicon glyphicon-remove"></span></a></td>
 							</tr>
 						</c:forEach>
 					</table>
@@ -41,24 +48,56 @@
 				<h3 class="panel-title">
 					Últimas páginas acessadas
 					<td class="table-button button-delet"><a
-						href="javascript:printTableFromHTMLtoPDF('tableRealAccess', 'Últimas páginas acessadas')" title="Imprimir"><span
-							style="margin-left:2em"class="glyphicon glyphicon-print"></span></a></td>
+						href="javascript:printTableFromHTMLtoPDF('tableRealAccess', 'Últimas páginas acessadas')"
+						title="Imprimir"><span style="margin-left: 2em"
+							class="glyphicon glyphicon-print"></span></a></td>
 				</h3>
 
 			</div>
 			<div id="tableRealAccess" class="row">
 				<div class="container-fluid table-relatorios-acesso-real">
-					<table cellpadding="2" cellspacing="2" border="1" >
+					<table cellpadding="2" cellspacing="2" border="1">
 						<tr>
 							<th class="title-column">Página (URL)</th>
 							<th class="title-column">IP</th>
 							<th class="title-column">Data/Hora</th>
 						</tr>
-						<c:forEach var="p" items="${relatorioAcessoReal}">
+						<c:forEach var="p" items="${realAccessReport}">
 							<tr>
 								<td class="tupla-element">${p.url}</td>
 								<td class="tupla-element">${p.ip}</td>
 								<td class="tupla-element">${p.dateTime}</td>
+							</tr>
+						</c:forEach>
+					</table>
+				</div>
+			</div>
+
+			<div class="panel-heading">
+
+				<h3 class="panel-title">
+					Páginas não monitoradas
+					<td class="table-button button-delet"><a
+						href="javascript:printTableFromHTMLtoPDF('tableDontMonitoredPages', 'Páginas não monitoradas')"
+						title="Imprimir"><span style="margin-left: 2em"
+							class="glyphicon glyphicon-print"></span></a></td>
+				</h3>
+
+			</div>
+			<div id="tableDontMonitoredPages" class="row">
+				<div class="container-fluid table-relatorios-mais-acesso">
+					<table cellpadding="2" cellspacing="2" border="1">
+						<tr>
+							<th class="title-column">Página (URL)</th>
+							<th class="title-column">Monitorar</th>
+						</tr>
+						<c:forEach var="p" items="${dontMonitoredPages}">
+							<tr>
+								<td class="tupla-element">${p.url}</td>
+								<td class="table-button button-delet" align="center"><a
+									href="./AdminServlet.saas?comando=iniciarMonitoraURL&url=${p.url}"
+									onclick="return confirm('Você tem certeza?')" title="Monitorar"><span
+										class="glyphicon glyphicon-ok"></span></a></td>
 							</tr>
 						</c:forEach>
 					</table>

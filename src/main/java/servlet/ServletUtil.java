@@ -3,14 +3,11 @@ package servlet;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
-import java.util.TimeZone;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.UsuarioDAO;
+import dao.UserDAO;
 
 /**
  * Classe com funcoes uteis e comuns a outros Servlets
@@ -42,7 +39,7 @@ public abstract class ServletUtil {
 			login = (String) req.getParameter("login");
 			senha = (String) req.getParameter("senha");
 		}
-		Boolean loginValidated = UsuarioDAO.validaUsuario(login, senha);
+		Boolean loginValidated = UserDAO.userAuthenticates(login, senha);
 		
 		return loginValidated; 
 	}
